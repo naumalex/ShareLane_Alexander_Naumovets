@@ -6,7 +6,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-class SignUpTests {
+public class SignUpTests {
     private WebDriver driver;
 
     @BeforeClass
@@ -28,27 +28,30 @@ class SignUpTests {
 
     @Test
     public void enterValidZipCode() throws InterruptedException {
-        EnterZipCode enterZipCode = new EnterZipCode(driver);
-        enterZipCode.enterZipCodeAndContinue("12345");
-        enterZipCode.checkIsSystemAcceptedEnteredZipCode("Sign up is not successful "
+        ZipCode zipCode = new ZipCode(driver);
+        zipCode.enterAndContinue("12345");
+        zipCode.checkIsAccepted("Sign up is not successful "
                 + "that is incorrect because all valid data entered");
         Thread.sleep(5000);
     }
 
     @Test
     public void enterEmptyZipCode() throws InterruptedException {
-        EnterZipCode enterZipCode = new EnterZipCode(driver);
-        enterZipCode.enterZipCodeAndContinue("");
-        enterZipCode.checkIsSystemNotAcceptedEnteredZipCode("Sign up is successful"
+        ZipCode zipCode = new ZipCode(driver);
+        zipCode.enterAndContinue("");
+        zipCode.checkIsNotAccepted("Oops, error on page. "
+                + "ZIP code should have 5 digits","Sign up is successful"
                 + "that is incorrect because empty code was entered");
         Thread.sleep(5000);
     }
 
     @Test
     public void enterMoreThanFiveCharactersZipCode() throws InterruptedException {
-        EnterZipCode enterZipCode = new EnterZipCode(driver);
-        enterZipCode.enterZipCodeAndContinue("123456");
-        enterZipCode.checkIsSystemNotAcceptedEnteredZipCode("Sign up is successful "
+        ZipCode zipCode = new ZipCode(driver);
+        zipCode.enterAndContinue("123456");
+        zipCode.checkIsNotAccepted("Oops, error on page. "
+                + "ZIP code should have 5 digits",
+                "Sign up is successful "
                 + "that is incorrect because more than 5 characters entered");
         Thread.sleep(5000);
     }

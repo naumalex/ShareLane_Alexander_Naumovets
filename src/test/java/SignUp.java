@@ -58,8 +58,8 @@ public class SignUp {
     public void execute(String zipCode, String firstName, String lastName,
                         String email, String password, String confirmPassword)
             throws InterruptedException {
-        EnterZipCode enterZipCode = new EnterZipCode(driver);
-        enterZipCode.enterZipCodeAndContinue(zipCode);
+        ZipCode enterZipCode = new ZipCode(driver);
+        enterZipCode.enterAndContinue(zipCode);
         enterFirstName(firstName);
         enterLastName(lastName);
         enterEmail(email);

@@ -3,14 +3,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-public class EnterZipCode {
+public class ZipCode {
     private WebDriver driver;
 
-    EnterZipCode(WebDriver driver)
+    ZipCode(WebDriver driver)
     {
         this.driver = driver;
     }
-    public void enterZipCode(String zipCode) {
+    public void enter(String zipCode) {
         WebElement zipCodeInput = driver.findElement(By.name("zip_code"));
         zipCodeInput.sendKeys(zipCode);
     }
@@ -19,23 +19,23 @@ public class EnterZipCode {
         continueButton.click();
     }
 
-    public void enterZipCodeAndContinue(String zipCode) throws InterruptedException {
-        enterZipCode(zipCode);
+    public void enterAndContinue(String zipCode) throws InterruptedException {
+        enter(zipCode);
         Thread.sleep(5000);
         clickContinue();
     }
-    public void checkIsSystemAcceptedEnteredZipCode(String messageIfError) {
+    public void checkIsAccepted(String messageIfError) {
         Assert.assertFalse(driver.findElement(By.name("zip_code")).isDisplayed(),
                 messageIfError);
         Assert.assertTrue(driver.findElement(By.name("first_name")).isDisplayed(),
                 messageIfError);
     }
-    public void checkIsSystemNotAcceptedEnteredZipCode(String messageIfError) {
+    public void checkIsNotAccepted(String expectedErrorMessage, String messageIfError) {
         Assert.assertTrue(driver.findElement(By.name("zip_code")).isDisplayed(),
                 messageIfError);
         String actualErrorMessage = driver.findElement(By.className("error_message"))
                 .getText();
         Assert.assertEquals(actualErrorMessage,
-                "Oops, error on page. ZIP code should have 5 digits");
+                expectedErrorMessage);
     }
 }
