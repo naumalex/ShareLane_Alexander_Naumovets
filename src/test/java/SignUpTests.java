@@ -53,7 +53,6 @@ class SignUpTests {
         Thread.sleep(5000);
     }
 
-
     @Test
     public void signUpSuccessfully() throws InterruptedException {
         SignUp signUp = new SignUp(driver);
